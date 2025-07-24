@@ -1,4 +1,4 @@
-# SkillMatch Pro AI - Advanced Resume Intelligence System with PyResParser
+# Resume Scorer - Advanced Resume Intelligence System with PyResParser
 
 🚀 **Revolutionary ML Web App** - No API wrappers, just pure advanced AI + PyResParser integration!
 
