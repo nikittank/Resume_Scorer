@@ -235,7 +235,7 @@ Add new features in the `extract_features()` method for domain-specific analysis
 **🏆 Built for "Real ML Web Apps: No Wrappers, Just Real Models" Hackathon**  
 *No APIs, No Shortcuts, Just Real Machine Learning*
 
-<img width="1921" height="1997" alt="screencapture-127-0-0-1-5000-2025-07-25-01_13_03" src="https://github.com/user-attachments/assets/bb0b4df8-d674-4d7d-85b0-1be9756cb4d3" />
+<img width="1615" height="975" alt="screencapture-127-0-0-1-5000-2025-07-25-01_13_03" src="https://github.com/user-attachments/assets/d4597fea-a4cb-4ab9-a503-c6249001ebf0" />
 
 
 ```bash
