@@ -231,36 +231,12 @@ Add new features in the `extract_features()` method for domain-specific analysis
 - **Visual Results**: Color-coded skill categories
 - **Professional Styling**: Modern gradient design
 
-## 🚀 Deployment Ready
-
-The application is ready for deployment on:
-- Heroku
-- AWS EC2
-- Google Cloud Platform
-- Local development servers
-
-## 🏅 Why This Wins
-
-1. **Technical Excellence**: Advanced ML with ensemble methods
-2. **Real Implementation**: No shortcuts or API calls
-3. **Practical Value**: Solves real resume screening problems
-4. **Professional Quality**: Production-ready code and UI
-5. **Hackathon Spirit**: Built from scratch, fully transparent
-
-## 🤝 Contributing
-
-This is a hackathon project showcasing real ML implementation. Feel free to:
-- Add new skill categories
-- Improve feature extraction
-- Enhance the UI/UX
-- Optimize model performance
-
----
 
 **🏆 Built for "Real ML Web Apps: No Wrappers, Just Real Models" Hackathon**  
 *No APIs, No Shortcuts, Just Real Machine Learning*
 
-## 🎬 Quick Demo Commands
+<img width="1921" height="1997" alt="screencapture-127-0-0-1-5000-2025-07-25-01_13_03" src="https://github.com/user-attachments/assets/bb0b4df8-d674-4d7d-85b0-1be9756cb4d3" />
+
 
 ```bash
 # Instant hackathon demo
