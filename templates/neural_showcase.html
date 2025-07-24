@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neural Network Analysis - SkillMatch Pro</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .neural-header {
+            text-align: center;
+            padding: 40px 20px;
+            color: white;
+        }
+        
+        .neural-title {
+            font-size: 3.5em;
+            font-weight: 800;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .neural-subtitle {
+            font-size: 1.3em;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        
+        .neural-badge {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1em;
+            animation: pulse 2s infinite;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .neural-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .feature-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .feature-description {
+            color: #7f8c8d;
+            line-height: 1.5;
+        }
+        
+        .upload-section {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+        
+        .upload-title {
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+        
+        .upload-area {
+            border: 3px dashed #667eea;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        
+        .upload-area:hover {
+            border-color: #764ba2;
+            background: rgba(102, 126, 234, 0.05);
+        }
+        
+        .upload-area.dragover {
+            border-color: #ff6b6b;
+            background: rgba(255, 107, 107, 0.1);
+        }
+        
+        .upload-icon {
+            font-size: 3em;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+        
+        .upload-text {
+            font-size: 1.2em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .upload-subtext {
+            color: #7f8c8d;
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        .analyze-btn {
+            width: 100%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+        
+        .analyze-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .analyze-btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .results-section {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+            display: none;
+        }
+        
+        .results-title {
+            font-size: 2em;
+            margin-bottom: 30px;
+            color: #2c3e50;
+            text-align: center;
+        }
+        
+        .neural-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .metric-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .metric-value {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .metric-label {
+            opacity: 0.9;
+            font-size: 0.9em;
+        }
+        
+        .neural-insights {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+        
+        .insights-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .insights-list {
+            list-style: none;
+        }
+        
+        .insights-list li {
+            padding: 8px 0;
+            color: #7f8c8d;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        .insights-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .role-predictions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .role-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .role-name {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .role-confidence {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .confidence-bar {
+            flex: 1;
+            height: 8px;
+            background: #ecf0f1;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .confidence-fill {
+            height: 100%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            transition: width 0.5s ease;
+        }
+        
+        .confidence-text {
+            font-size: 0.9em;
+            color: #7f8c8d;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #667eea;
+        }
+        
+        .loading i {
+            font-size: 3em;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <button class="back-btn" onclick="window.location.href='/'">
+        <i class="fas fa-arrow-left"></i> Back
+    </button>
+    
+    <div class="neural-header">
+        <div class="neural-badge">
+            <i class="fas fa-brain"></i> Deep Learning Powered
+        </div>
+        <h1 class="neural-title">Neural Network Analysis</h1>
+        <p class="neural-subtitle">Advanced AI with Custom Neural Networks</p>
+    </div>
+    
+    <div class="container">
+        <div class="neural-features">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-network-wired"></i></div>
+                <h3 class="feature-title">CNN + LSTM Architecture</h3>
+                <p class="feature-description">
+                    Convolutional Neural Networks combined with Long Short-Term Memory networks for advanced text understanding
+                </p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-layer-group"></i></div>
+                <h3 class="feature-title">Multi-Layer Processing</h3>
+                <p class="feature-description">
+                    Deep embedding layers with bidirectional processing for comprehensive resume analysis
+                </p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                <h3 class="feature-title">Real-Time Inference</h3>
+                <p class="feature-description">
+                    Optimized neural networks providing instant predictions with high accuracy
+                </p>
+            </div>
+        </div>
+        
+        <div class="upload-section">
+            <h2 class="upload-title">
+                <i class="fas fa-brain"></i> Neural Network Resume Analysis
+            </h2>
+            
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                <div class="upload-text">Upload Resume for Neural Analysis</div>
+                <div class="upload-subtext">PDF, DOCX, or TXT • Advanced deep learning processing</div>
+                <input type="file" id="resumeFile" class="file-input" accept=".pdf,.docx,.txt">
+            </div>
+            
+            <button class="analyze-btn" id="analyzeBtn" disabled>
+                <i class="fas fa-brain"></i> Run Neural Network Analysis
+            </button>
+        </div>
+        
+        <div class="results-section" id="resultsSection">
+            <h2 class="results-title">
+                <i class="fas fa-chart-bar"></i> Neural Network Results
+            </h2>
+            
+            <div class="loading" id="loadingIndicator">
+                <i class="fas fa-cog"></i>
+                <p>Running deep learning analysis...</p>
+            </div>
+            
+            <div id="analysisResults" style="display: none;">
+                <div class="neural-metrics" id="neuralMetrics">
+                    <!-- Metrics will be populated here -->
+                </div>
+                
+                <div class="neural-insights">
+                    <h3 class="insights-title">
+                        <i class="fas fa-lightbulb"></i> Neural Network Insights
+                    </h3>
+                    <ul class="insights-list" id="insightsList">
+                        <!-- Insights will be populated here -->
+                    </ul>
+                </div>
+                
+                <div class="neural-insights">
+                    <h3 class="insights-title">
+                        <i class="fas fa-bullseye"></i> AI Role Predictions
+                    </h3>
+                    <div class="role-predictions" id="rolePredictions">
+                        <!-- Role predictions will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('resumeFile');
+        const analyzeBtn = document.getElementById('analyzeBtn');
+        const resultsSection = document.getElementById('resultsSection');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const analysisResults = document.getElementById('analysisResults');
+        
+        // File upload handling
+        uploadArea.addEventListener('click', () => fileInput.click());
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                fileInput.files = files;
+                handleFileSelect();
+            }
+        });
+        
+        fileInput.addEventListener('change', handleFileSelect);
+        
+        function handleFileSelect() {
+            const file = fileInput.files[0];
+            if (file) {
+                const fileName = file.name;
+                uploadArea.innerHTML = `
+                    <div class="upload-icon"><i class="fas fa-file-alt"></i></div>
+                    <div class="upload-text">Selected: ${fileName}</div>
+                    <div class="upload-subtext">Ready for neural network analysis</div>
+                `;
+                analyzeBtn.disabled = false;
+            }
+        }
+        
+        analyzeBtn.addEventListener('click', performNeuralAnalysis);
+        
+        async function performNeuralAnalysis() {
+            const file = fileInput.files[0];
+            if (!file) return;
+            
+            // Show results section and loading
+            resultsSection.style.display = 'block';
+            loadingIndicator.style.display = 'block';
+            analysisResults.style.display = 'none';
+            analyzeBtn.disabled = true;
+            
+            // Scroll to results
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+            
+            const formData = new FormData();
+            formData.append('resume_file', file);
+            
+            try {
+                const response = await fetch('/neural_analysis', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    displayResults(data);
+                } else {
+                    throw new Error(data.error || 'Analysis failed');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                loadingIndicator.innerHTML = `
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p>Analysis failed: ${error.message}</p>
+                `;
+            } finally {
+                analyzeBtn.disabled = false;
+            }
+        }
+        
+        function displayResults(data) {
+            loadingIndicator.style.display = 'none';
+            analysisResults.style.display = 'block';
+            
+            // Display metrics
+            const metricsHtml = `
+                <div class="metric-card">
+                    <div class="metric-value">${data.neural_quality_score?.toFixed(1) || 'N/A'}%</div>
+                    <div class="metric-label">Neural Quality Score</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">${data.neural_role_predictions?.length || 0}</div>
+                    <div class="metric-label">Role Predictions</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">${Object.keys(data.neural_skills || {}).length}</div>
+                    <div class="metric-label">Skill Categories</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">${data.analysis_type?.includes('Neural') ? 'Yes' : 'Sim'}</div>
+                    <div class="metric-label">Neural Networks</div>
+                </div>
+            `;
+            document.getElementById('neuralMetrics').innerHTML = metricsHtml;
+            
+            // Display insights
+            const insights = data.neural_recommendations || [];
+            const insightsHtml = insights.map(insight => `<li>${insight}</li>`).join('');
+            document.getElementById('insightsList').innerHTML = insightsHtml;
+            
+            // Display role predictions
+            const roles = data.neural_role_predictions || [];
+            const rolesHtml = roles.slice(0, 6).map(role => `
+                <div class="role-card">
+                    <div class="role-name">${role.role}</div>
+                    <div class="role-confidence">
+                        <div class="confidence-bar">
+                            <div class="confidence-fill" style="width: ${(role.probability * 100).toFixed(0)}%"></div>
+                        </div>
+                        <div class="confidence-text">${(role.probability * 100).toFixed(0)}%</div>
+                    </div>
+                </div>
+            `).join('');
+            document.getElementById('rolePredictions').innerHTML = rolesHtml;
+        }
+    </script>
+</body>
+</html>
