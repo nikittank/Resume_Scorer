@@ -2,7 +2,7 @@
 
 🚀 **Revolutionary ML Web App** - No API wrappers, just pure advanced AI + PyResParser integration!
 
-A comprehensive AI-powered web application that combines **PyResParser** for structured data extraction with custom-trained machine learning models for intelligent resume analysis, job role prediction, and career guidance. Perfect for the "Real ML Web Apps" hackathon challenge with enhanced data extraction capabilities.
+A comprehensive AI web application that combines **PyResParser** for structured data extraction with custom-trained machine learning models for intelligent resume analysis, job role prediction, and career guidance. Perfect for the "Real ML Web Apps" hackathon challenge with enhanced data extraction capabilities.
 
 ## 🌟 Advanced AI Features
 
