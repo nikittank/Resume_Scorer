@@ -6,7 +6,7 @@ A comprehensive AI web application that combines **PyResParser** for structured 
 
 ## 🌟 Advanced AI Features
 
-### 🧠 Deep Learning Neural Networks (NEW!)
+### 🧠 Deep Learning Neural Networks
 - **CNN + LSTM Architecture**: Convolutional and Long Short-Term Memory networks
 - **Bidirectional Processing**: Advanced text understanding with context awareness
 - **Custom Embeddings**: 128-dimensional word embeddings trained on resume data
